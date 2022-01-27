@@ -107,7 +107,7 @@ input[type=submit] {
 
 
     <div>
-        <form action="update_form_1.php" method = "post" class="container">
+        <form action="update_form.php" method = "post" class="container">
 			<input type="text" name="id" placeholder="Item ID Number" >
             <input type="text" name="update" placeholder="Update data" >
             <div class="box">
@@ -119,7 +119,7 @@ input[type=submit] {
             </div>
 
             <input type="submit" value="Update Item">
-            <a class="btn" href="../medical_supplies.php">Back</a>
+            <a class="btn" href="inventory.php">Back</a>
         </form>
     </div>
 
@@ -142,13 +142,13 @@ input[type=submit] {
                     }
                     
                     if(count($errors) == 0){
-                        $conn = new mysqli("localhost","root", "", "pims_db");
+                        $conn = new mysqli("localhost","root", "", "pims_db2");
 
-                        $sql = "UPDATE medical_supplies SET $choice = '".$update."' WHERE id ='".$id."' ";
+                        $sql = "UPDATE inventory SET $choice = '".$update."' WHERE id ='".$id."' ";
 
                         if($conn->query($sql)){
                             echo '<script>
-                            window.location = "../medical_supplies.php";
+                            window.location = "inventory.php";
                             alert("Updating successfully");
                             
                             </script>';

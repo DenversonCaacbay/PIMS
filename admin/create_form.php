@@ -17,11 +17,13 @@
     $category = mysqli_real_escape_string($db, $_POST['category']);
   	$packaging_type = mysqli_real_escape_string($db, $_POST['packaging_type']);
   	$quantity = mysqli_real_escape_string($db, $_POST['quantity']);
+    $expiration_date = mysqli_real_escape_string($db, $_POST['expiration_date']);
+
 
   	// image file directory
   	$target = "images/".basename($image);
 
-  	$sql = "INSERT INTO inventory (image, product_name, price, market, generic_name,category, packaging_type,quantity) VALUES ('$image', '$product_name','$price','$market','$generic_name','$category','$packaging_type','$quantity')";
+  	$sql = "INSERT INTO inventory (image, product_name, price, market, generic_name,category, packaging_type,quantity,expiration_date) VALUES ('$image', '$product_name','$price','$market','$generic_name','$category','$packaging_type','$quantity','$expiration_date')";
   	// execute query
   	mysqli_query($db, $sql);
 
@@ -62,6 +64,14 @@ input[type=file]{
     margin-bottom: 16px;
     resize: vertical;
 }
+input[type=date]{
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    resize: vertical;
+}
   .box select {
     background-color: #526dfe;
     color: white;
@@ -99,6 +109,8 @@ input[type=file]{
       <input type="text" name="price" placeholder="Price">
       <input type="text" name="market" placeholder="Marketed By" >
       <input type="text" name="generic_name" placeholder="Generic Name">
+      
+      
       <br>
       <select class="txtb box" name="category">
               <option value="Medical Supplies">Medical Supplies</option>
@@ -109,6 +121,10 @@ input[type=file]{
             <br>
       <input type="text" name="packaging_type" placeholder="Packaging Type">
       <input type="text" name="quantity" placeholder="Quantity">
+      <div style="width: 46%;margin-left:20%;">
+          <label><b>Expiration Date :</b></label>
+            <input type="date" name="expiration_date" value="2021-12-15">
+        </div>
   	</div>
   	<div>
   		<input type="submit" name="upload" value="Create">
