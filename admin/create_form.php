@@ -7,37 +7,49 @@
 
   // If upload button is clicked ...
   if (isset($_POST['upload'])) {
-  	// Get image name
-  	$image = $_FILES['image']['name'];
-  	// Get text
-  	$product_name = mysqli_real_escape_string($db, $_POST['product_name']);
-  	$price = mysqli_real_escape_string($db, $_POST['price']);
-  	$market = mysqli_real_escape_string($db, $_POST['market']);
-  	$generic_name = mysqli_real_escape_string($db, $_POST['generic_name']);
-    $category = mysqli_real_escape_string($db, $_POST['category']);
-  	$packaging_type = mysqli_real_escape_string($db, $_POST['packaging_type']);
-  	$quantity = mysqli_real_escape_string($db, $_POST['quantity']);
-    $expiration_date = mysqli_real_escape_string($db, $_POST['expiration_date']);
+    if(isset($_POST['product_name']))
+    {
+      $image = $_FILES['image']['name'];
+      $product_name = mysqli_real_escape_string($db, $_POST['product_name']);
+      $price = mysqli_real_escape_string($db, $_POST['price']);
+      $market = mysqli_real_escape_string($db, $_POST['market']);
+      $generic_name = mysqli_real_escape_string($db, $_POST['generic_name']);
+      $category = mysqli_real_escape_string($db, $_POST['category']);
+      $packaging_type = mysqli_real_escape_string($db, $_POST['packaging_type']);
+      $quantity = mysqli_real_escape_string($db, $_POST['quantity']);
+      $expiration_date = mysqli_real_escape_string($db, $_POST['expiration_date']);
+      // image file directory
+      $target = "images/".basename($image);
 
-
-  	// image file directory
-  	$target = "images/".basename($image);
-
-  	$sql = "INSERT INTO inventory (image, product_name, price, market, generic_name,category, packaging_type,quantity,expiration_date) VALUES ('$image', '$product_name','$price','$market','$generic_name','$category','$packaging_type','$quantity','$expiration_date')";
-  	// execute query
-  	mysqli_query($db, $sql);
-
-  	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+      $query = mysqli_query($db,"SELECT * FROM inventory WHERE product_name='$product_name' ");
+      if(mysqli_num_rows($query) > 0)
+      {
         echo '<script>
-        window.location = "inventory.php";
-        alert("Added successfully.");
-        </script>';	
-  	}else{
-        echo '<script>
-        window.location = "create_form.php";
-        alert("NOT ADDED.");
-        </script>';	
-  	}
+        window.location = "create_form.php.";
+        alert("Product Already Exists !");
+        </script>';
+      }
+      else
+      {
+        $sql = "INSERT INTO inventory (image, product_name, price, market, generic_name,category, packaging_type,quantity,expiration_date) VALUES ('$image', '$product_name','$price','$market','$generic_name','$category','$packaging_type','$quantity','$expiration_date')";
+        // execute query
+        mysqli_query($db, $sql);
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $target))
+        {
+           echo '<script>
+           window.location = "inventory.php";
+           alert("Added successfully.");
+           </script>';
+        }
+        else
+        {
+          echo '<script>
+          window.location = "create_form.php";
+          alert("NOT ADDED.");
+          </script>';
+        }
+      }
+    }
   }
 ?>
 <!DOCTYPE html>

@@ -75,9 +75,9 @@ session_start();
           <h4 style="font-size: 18px;color:#526dfe;margin-left: 10px;"><?php echo $product['product_name']; ?></h4>
           <h4 style="margin-left: 10px;"><?php echo $product['price']; ?></h4>
           <input type="text" name="quantity" class="form-control" style="width: 90%;" value="1" />
-          <input type="hidden" name="name" class="form-control" value="<?php echo $product['name']; ?>" />
+          <input type="hidden" name="product_name" class="form-control" value="<?php echo $product['product_name']; ?>" />
           <input type="hidden" name="price" class="form-control" value="<?php echo $product['price']; ?>" />
-          
+          <input type="hidden" name="username" class="form-control" value="<?php echo $_SESSION['username'];?>" />
           <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-info" value="Reserved" />
         </div>
 
